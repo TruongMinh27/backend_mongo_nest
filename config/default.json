@@ -1,0 +1,24 @@
+{
+  "port": "3100",
+  "mongoDbUrl": "mongodb+srv://minhnct0319:YYghb842MYcybJh6@e-commerce.vf3qzc3.mongodb.net/?retryWrites=true&w=majority",
+  "adminSecretToken": "admin@123",
+  "jwtSecret": "secretTest@123456",
+  "loginLink": "http://localhost:3000/auth",
+  "appPrefix": "/api/v1",
+  "fileStoragePath": "../uploads/",
+  "cloudinary": {
+    "cloud_name": "dlunhblat",
+    "api_key": "482217947169676",
+    "api_secret": "uVcanptaavY0lXhJKyykKRUhXPY",
+    "folderPath": "product",
+    "publicId_prefix": "m_shopping",
+    "bigSize": "400X400"
+  },
+  "stripe": {
+    "publishable_key": "pk_test_51NJA60A8RiXMGnyLWj5L0sIM4SMR4TRbwPT29Tzf0bQjUaGsK2jJYxkZL52l8kdlB3TW2eKyyUxrWTfoblN0rPaZ00zL9aTPta",
+    "secret_key": "sk_test_51NJA60A8RiXMGnyLnP3nyE0KhoPl8faT1HNMRJ2eHlrJwkTpNkGZRvGMFWmvjXetnzVCLxWJfFpyUujAjncoPzi100LRAa8tfa",
+    "successUrl": "http://localhost:3000/order-success",
+    "cancelUrl": "http://localhost:3000/order-cancel",
+    "webhookSecret": "whsec_83891384478961248de792fd0f0c1e5529d974ede914e8a0bbee9695027e7fbf"
+  }
+}
