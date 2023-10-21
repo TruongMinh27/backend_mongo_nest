@@ -77,7 +77,7 @@ export class OrdersService {
           productSku: item.skuId,
           isSold: false,
         });
-        if (itemsAreInStock.length <= item.quantity) {
+        if (itemsAreInStock.length >= item.quantity) {
           lineItems.push({
             price: item.skuPriceId,
             quantity: item.quantity,
@@ -98,6 +98,7 @@ export class OrdersService {
 
       const session = await this.stripeClient.checkout.sessions.create({
         line_items: lineItems,
+        locale: 'vi',
         metadata: {
           userId: user._id.toString(),
         },
@@ -122,6 +123,7 @@ export class OrdersService {
   }
 
   async webhook(rawBody: Buffer, sig: string) {
+    console.log('Thanh toán nè');
     try {
       let event;
       try {
@@ -133,7 +135,7 @@ export class OrdersService {
       } catch (err) {
         throw new BadRequestException('Webhook Error:', err.message);
       }
-
+      console.log('Tao log' + event.type);
       if (event.type === 'checkout.session.completed') {
         const session = event.data.object as Stripe.Checkout.Session;
         const orderData = await this.createOrderObject(session);
@@ -150,13 +152,19 @@ export class OrdersService {
             isOrderDelivered: true,
             ...orderData,
           });
-          this.sendOrderEmail(
+          // this.sendOrderEmail(
+          //   orderData.customerEmail,
+          //   orderData.orderId,
+          //   `${config.get('emailService.emailTemplates.orderSuccess')}${
+          //     order._id
+          //   }`,
+          // );
+          await sendMail(
             orderData.customerEmail,
-            orderData.orderId,
-            `${config.get('emailService.emailTemplates.orderSuccess')}${
-              order._id
-            }`,
+            'Đơn hàng - ' + orderData.orderId,
+            `${'Cảm ơn đã thanh toán vui lòng kiểm tra key trên web!'}`,
           );
+          console.log('OK');
         }
       } else {
         console.log('Unhandled event type', event.type);
@@ -237,7 +245,7 @@ export class OrdersService {
           paymentMethod: session.payment_method_types[0],
           paymentIntentId: session.payment_intent,
           paymentDate: new Date(),
-          paymentAmount: session.amount_total / 100,
+          paymentAmount: session.amount_total,
           paymentStatus: session.payment_status,
         },
         orderDate: new Date(),

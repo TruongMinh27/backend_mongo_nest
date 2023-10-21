@@ -48,7 +48,7 @@ export class OrdersModule implements NestModule {
     consumer
       .apply(AuthMiddleware)
       .exclude({
-        path: `${config.get('appPrefix')}/orders/webhook`,
+        path: `/orders/webhook`,
         method: RequestMethod.POST,
       })
       .forRoutes(OrdersController);

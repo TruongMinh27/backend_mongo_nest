@@ -223,7 +223,7 @@ export class ProductsService {
       });
 
       return {
-        message: 'Image uploaded successfully',
+        message: 'Tải ảnh lên thành công',
         success: true,
         result: resOfCloudinary.secure_url,
       };
@@ -294,8 +294,8 @@ export class ProductsService {
 
       if (data.price !== sku.price) {
         const priceDetails = await this.stripeClient.prices.create({
-          unit_amount: data.price * 100,
-          currency: 'inr',
+          unit_amount: data.price,
+          currency: 'vnd',
           product: product.stripeProductId,
           metadata: {
             skuCode: sku.skuCode,
@@ -489,12 +489,12 @@ export class ProductsService {
       }
 
       const order = await this.orderDB.findOne({
-        customerId: user._id,
+        userId: user._id,
         'orderedItems.productId': productId,
       });
 
       if (!order) {
-        throw new BadRequestException('You have not purchased this product');
+        throw new BadRequestException('Bản phải mua mới được đánh giá');
       }
 
       const ratings: any[] = [];
@@ -522,7 +522,7 @@ export class ProductsService {
       );
 
       return {
-        message: 'Product review added successfully',
+        message: 'Thêm đánh giá thành công',
         success: true,
         result,
       };
@@ -565,7 +565,7 @@ export class ProductsService {
       );
 
       return {
-        message: 'Product review removed successfully',
+        message: 'Xóa thành công',
         success: true,
         result,
       };

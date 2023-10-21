@@ -52,7 +52,11 @@ export class UsersService {
         otpExpiryTime,
       });
       if (newUser.type !== userTypes.ADMIN) {
-        await sendMail(newUser.email, 'Xác nhận đăng ký tài khoản', `${otp}`);
+        await sendMail(
+          newUser.email,
+          'Xác nhận đăng ký tài khoản',
+          `<p>Vui lòng nhập đúng OTP bên dưới để hoàn thành xác thực</p><h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${otp}</h2>`,
+        );
       }
       return {
         success: true,
@@ -163,11 +167,15 @@ export class UsersService {
         },
       );
 
-      await sendMail(user.email, 'Xác nhận đăng ký tài khoản', `${otp}`);
+      await sendMail(
+        user.email,
+        'Xác nhận đăng ký tài khoản',
+        `<p>Vui lòng nhập đúng OTP bên dưới để hoàn thành xác thực</p><h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${otp}</h2>`,
+      );
 
       return {
         success: true,
-        message: 'Otp sent successfully',
+        message: 'Otp gửi đi thành công',
         result: { email: user.email },
       };
     } catch (error) {
@@ -197,13 +205,13 @@ export class UsersService {
 
       await sendMail(
         user.email,
-        'Xác nhận đăng ký tài khoản',
-        `${tempPassword}`,
+        'Thay đổi mật khẩu',
+        `Mật khẩu mới của bạn là: ${tempPassword}, hãy thay đổi mật khẩu trên trên quản lý tài khoản `,
       );
 
       return {
         success: true,
-        message: 'Password sent to your email',
+        message: 'Mật khẩu đã được gửi đến email',
         result: { email: user.email, password: tempPassword },
       };
     } catch (error) {

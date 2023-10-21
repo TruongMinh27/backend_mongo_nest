@@ -5,7 +5,7 @@ export const sendMail = async (to: string, subject: string, text: string) => {
     service: 'Gmail',
     auth: {
       user: 'minhnct0319@dhv.edu.vn',
-      pass: 'Hvuh@123',
+      pass: '123Dbtnctgt!',
     },
   });
 

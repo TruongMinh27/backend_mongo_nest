@@ -1,6 +1,6 @@
 {
   "port": "3100",
-  "mongoDbUrl": "mongodb+srv://minhnct0319:YYghb842MYcybJh6@e-commerce.vf3qzc3.mongodb.net/?retryWrites=true&w=majority",
+  "mongoDbUrl": "mongodb+srv://minhnct0319:123Dbtnctgt%21@e-commerce.vf3qzc3.mongodb.net",
   "adminSecretToken": "admin@123",
   "jwtSecret": "secretTest@123456",
   "loginLink": "http://localhost:3000/auth",
